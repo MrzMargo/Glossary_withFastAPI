@@ -4,32 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glossary</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .term-container {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 10px 0;
-            background-color: #f9f9f9;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s; /* Плавный переход цвета */
-        }
-        .term-container:hover {
-            background-color: #e0f7fa; /* Цвет при наведении */
-        }
-        .term-word {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .term-definition {
-            color: #555;
-        }
-        button { margin: 5px; }
-    </style>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Glossary</h1>
+    <h1>Глоссарий</h1>
     <input type="text" id="searchWord" placeholder="Введите слово для поиска">
     <button onclick="searchTerm()">Найти определение</button>
     <button onclick="showTerms()">Показать все термины</button>
@@ -39,85 +17,6 @@
 
     <div id="termsContainer"></div>
 
-    <script>
-        async function showTerms() {
-            const response = await fetch("/terms/");
-            const terms = await response.json();
-            const container = document.getElementById("termsContainer");
-            container.innerHTML = ""; // Clear existing terms
-            terms.forEach(term => {
-                const termDiv = document.createElement("div");
-                termDiv.className = "term-container";
-                termDiv.innerHTML = `
-                    <div class="term-word">${term.word}</div>
-                    <div class="term-definition">${term.definition}</div>
-                `;
-                container.appendChild(termDiv);
-            });
-        }
-
-        async function searchTerm() {
-            const word = document.getElementById("searchWord").value;
-            const response = await fetch(`/terms/`);
-            const terms = await response.json();
-            const foundTerm = terms.find(term => term.word.toLowerCase() === word.toLowerCase());
-            if (foundTerm) {
-                alert(`Определение для "${foundTerm.word}": ${foundTerm.definition}`);
-            } else {
-                alert("Термин не найден.");
-            }
-        }
-
-        async function addTerm() {
-            const id = prompt("Введите ID термина:");
-            const word = prompt("Введите слово:");
-            const definition = prompt("Введите определение:");
-            const response = await fetch("/terms/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ id: Number(id), word, definition })
-            });
-            if (response.ok) {
-                alert("Термин добавлен!");
-                showTerms();
-            } else {
-                alert("Ошибка при добавлении термина.");
-            }
-        }
-
-        async function updateTerm() {
-            const id = prompt("Введите ID термина для изменения:");
-            const word = prompt("Введите новое слово:");
-            const definition = prompt("Введите новое определение:");
-            const response = await fetch(`/terms/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ id: Number(id), word, definition })
-            });
-            if (response.ok) {
-                alert("Термин изменен!");
-                showTerms();
-            } else {
-                alert("Ошибка при изменении термина.");
-            }
-        }
-
-        async function deleteTerm() {
-            const id = prompt("Введите ID термина для удаления:");
-            const response = await fetch(`/terms/${id}`, {
-                method: "DELETE"
-            });
-            if (response.ok) {
-                alert("Термин удален!");
-                showTerms();
-            } else {
-                alert("Ошибка при удалении термина.");
-            }
-        }
-    </script>
+    <script src="/static/script.js"></script>
 </body>
 </html>

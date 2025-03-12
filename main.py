@@ -1,11 +1,13 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 class Term(BaseModel):
     id: int
@@ -38,11 +40,6 @@ async def delete_term(term_id: int):
             return term
     raise HTTPException(status_code=404, detail="Term not found")
 
-@app.get("/", response_class=HTMLResponse)
-async def read_glossary(request: Request):
-    terms = glossary
-    return templates.TemplateResponse("index.html", {"request": request, "terms": terms})
-
 @app.put("/terms/{term_id}", response_model=Term)
 async def update_term(term_id: int, updated_term: Term):
     for index, term in enumerate(glossary):
@@ -50,3 +47,7 @@ async def update_term(term_id: int, updated_term: Term):
             glossary[index] = updated_term
             return updated_term
     raise HTTPException(status_code=404, detail="Term not found")
+
+@app.get("/", response_class=HTMLResponse)
+async def read_glossary(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})

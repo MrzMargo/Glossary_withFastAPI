@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab945053-0949-482b-884d-250051080052" name="Changes" comment="adding heroku accont">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
+    <list default="true" id="ab945053-0949-482b-884d-250051080052" name="Changes" comment="readme file">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,13 +100,22 @@
       <option name="project" value="LOCAL" />
       <updated>1741769799596</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="readme file">
+      <option name="closed" value="true" />
+      <created>1741775585927</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1741775585927</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="adding main.py and index.html" />
     <MESSAGE value="changing styles" />
     <MESSAGE value="adding heroku accont" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding heroku accont" />
+    <MESSAGE value="readme file" />
+    <option name="LAST_COMMIT_MESSAGE" value="readme file" />
   </component>
 </project>

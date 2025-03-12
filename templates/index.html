@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossary</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+        button { margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Glossary</h1>
+    <button onclick="showTerms()">Показать все термины</button>
+    <button onclick="addTerm()">Добавить термин</button>
+    <button onclick="updateTerm()">Изменить термин</button>
+    <button onclick="deleteTerm()">Удалить термин</button>
+
+    <table id="termsTable">
+        <tr>
+            <th>ID</th>
+            <th>Word</th>
+            <th>Definition</th>
+        </tr>
+    </table>
+
+    <script>
+        async function showTerms() {
+            const response = await fetch("/terms/");
+            const terms = await response.json();
+            const table = document.getElementById("termsTable");
+            table.innerHTML = "<tr><th>ID</th><th>Word</th><th>Definition</th></tr>"; // Clear existing rows
+            terms.forEach(term => {
+                const row = table.insertRow();
+                row.insertCell(0).innerText = term.id;
+                row.insertCell(1).innerText = term.word;
+                row.insertCell(2).innerText = term.definition;
+            });
+        }
+
+        async function addTerm() {
+            const id = prompt("Введите ID термина:");
+            const word = prompt("Введите слово:");
+            const definition = prompt("Введите определение:");
+            const response = await fetch("/terms/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ id: Number(id), word, definition })
+            });
+            if (response.ok) {
+                alert("Термин добавлен!");
+                showTerms();
+            } else {
+                alert("Ошибка при добавлении термина.");
+            }
+        }
+
+        async function updateTerm() {
+            const id = prompt("Введите ID термина для изменения:");
+            const word = prompt("Введите новое слово:");
+            const definition = prompt("Введите новое определение:");
+            const response = await fetch(`/terms/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ id: Number(id), word, definition })
+            });
+            if (response.ok) {
+                alert("Термин изменен!");
+                showTerms();
+            } else {
+                alert("Ошибка при изменении термина.");
+            }
+        }
+
+        async function deleteTerm() {
+            const id = prompt("Введите ID термина для удаления:");
+            const response = await fetch(`/terms/${id}`, {
+                method: "DELETE"
+            });
+            if (response.ok) {
+                alert("Термин удален!");
+                showTerms();
+            } else {
+                alert("Ошибка при удалении термина.");
+            }
+        }
+    </script>
+</body>
+</html>

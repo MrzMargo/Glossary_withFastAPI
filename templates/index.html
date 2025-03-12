@@ -6,39 +6,66 @@
     <title>Glossary</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
-        th { background-color: #f2f2f2; }
+        .term-container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s; /* Плавный переход цвета */
+        }
+        .term-container:hover {
+            background-color: #e0f7fa; /* Цвет при наведении */
+        }
+        .term-word {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .term-definition {
+            color: #555;
+        }
         button { margin: 5px; }
     </style>
 </head>
 <body>
     <h1>Glossary</h1>
+    <input type="text" id="searchWord" placeholder="Введите слово для поиска">
+    <button onclick="searchTerm()">Найти определение</button>
     <button onclick="showTerms()">Показать все термины</button>
     <button onclick="addTerm()">Добавить термин</button>
     <button onclick="updateTerm()">Изменить термин</button>
     <button onclick="deleteTerm()">Удалить термин</button>
 
-    <table id="termsTable">
-        <tr>
-            <th>ID</th>
-            <th>Word</th>
-            <th>Definition</th>
-        </tr>
-    </table>
+    <div id="termsContainer"></div>
 
     <script>
         async function showTerms() {
             const response = await fetch("/terms/");
             const terms = await response.json();
-            const table = document.getElementById("termsTable");
-            table.innerHTML = "<tr><th>ID</th><th>Word</th><th>Definition</th></tr>"; // Clear existing rows
+            const container = document.getElementById("termsContainer");
+            container.innerHTML = ""; // Clear existing terms
             terms.forEach(term => {
-                const row = table.insertRow();
-                row.insertCell(0).innerText = term.id;
-                row.insertCell(1).innerText = term.word;
-                row.insertCell(2).innerText = term.definition;
+                const termDiv = document.createElement("div");
+                termDiv.className = "term-container";
+                termDiv.innerHTML = `
+                    <div class="term-word">${term.word}</div>
+                    <div class="term-definition">${term.definition}</div>
+                `;
+                container.appendChild(termDiv);
             });
+        }
+
+        async function searchTerm() {
+            const word = document.getElementById("searchWord").value;
+            const response = await fetch(`/terms/`);
+            const terms = await response.json();
+            const foundTerm = terms.find(term => term.word.toLowerCase() === word.toLowerCase());
+            if (foundTerm) {
+                alert(`Определение для "${foundTerm.word}": ${foundTerm.definition}`);
+            } else {
+                alert("Термин не найден.");
+            }
         }
 
         async function addTerm() {

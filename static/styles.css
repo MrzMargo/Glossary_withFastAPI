@@ -10,11 +10,11 @@ body {
     margin: 10px 0;
     background-color: #f9f9f9;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s; /* Плавный переход цвета */
+    transition: background-color 0.3s;
 }
 
 .term-container:hover {
-    background-color: #B0E0E6; /* Цвет при наведении */
+    background-color: #B0E0E6;
 }
 
 .term-word {
@@ -28,28 +28,28 @@ body {
 
 button {
     margin: 5px;
-    background-color: #B0E0E6; /* Изначальный цвет кнопки */
-    color: #000000; /* Цвет текста */
-    border: none; /* Убираем стандартную рамку */
-    border-radius: 25px; /* Округлые края */
-    padding: 10px 20px; /* Отступы внутри кнопки */
-    font-size: 16px; /* Размер шрифта */
-    cursor: pointer; /* Указатель при наведении */
-    transition: background-color 0.3s, color 0.3s; /* Плавный переход */
+    background-color: #B0E0E6;
+    color: #000000;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 button:hover {
-    background-color: #808080; /* Цвет фона при наведении */
-    color: white; /* Цвет текста при наведении */
+    background-color: #808080;
+    color: white;
 }
 input[type="text"] {
-    border: 2px solid lightblue; /* Голубая рамка */
-    border-radius: 25px; /* Округлые края */
-    padding: 10px; /* Отступы внутри поля ввода */
-    font-size: 16px; /* Размер шрифта */
-    outline: none; /* Убираем стандартный контур при фокусе */
-    transition: border-color 0.3s; /* Плавный переход для изменения цвета рамки */
+    border: 2px solid lightblue;
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
 input[type="text"]:focus {
-    border-color: blue; /* Цвет рамки при фокусе */
+    border-color: blue;
 }
